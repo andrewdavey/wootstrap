@@ -1,0 +1,12 @@
+﻿@model SignInViewModel
+@{
+    View.Title = "Sign In";
+}
+
+<h1>Sign In</h1>
+<form method="post" action="">
+	@Html.EditorForModel()
+	<div>
+		<button type="submit">Sign In</button>
+	</div>
+</form>

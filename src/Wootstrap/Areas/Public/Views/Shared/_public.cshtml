@@ -1,0 +1,21 @@
+﻿@{ Layout = "~/views/shared/_site.cshtml"; }
+
+<div id="wrap">
+	<div id="header">
+		
+	</div>
+	<div id="content">
+		@RenderBody()
+	</div>
+	<div id="footer">
+		
+	</div>
+</div>
+
+@section head {
+	@RenderSection("head", required: false)
+}
+
+@section scripts {
+	@RenderSection("scripts", required: false)
+}
