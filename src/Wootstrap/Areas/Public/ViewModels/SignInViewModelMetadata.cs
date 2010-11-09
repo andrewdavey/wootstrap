@@ -1,6 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using FluentValidation;
 using FluentValidation.Mvc.MetadataExtensions;
+using FluentValidation.Results;
+using Wootstrap.Infrastructure.Metadata;
 
 namespace Wootstrap.Areas.Public.ViewModels
 {
@@ -8,10 +11,23 @@ namespace Wootstrap.Areas.Public.ViewModels
     {
         public SignInViewModelMetadata()
         {
-            RuleFor(m => m.Password).DataType(DataType.Password);
-            RuleFor(m => m.ReturnUrl).Scaffold(false);
+            RuleFor(m => m.Username).Description("Try 'test'");
+            RuleFor(m => m.Password).DataType(DataType.Password).Description("Try 'password'");
+            RuleFor(m => m.ReturnUrl).HiddenInput(displayValue: false);
+            AddRule(new AuthenticateUsernameAndPassword());
+        }
 
-            RuleFor(m => m.Password).Equal("test").WithMessage("Incorrect username or password.");
+        class AuthenticateUsernameAndPassword : IValidationRule<SignInViewModel>
+        {
+            public IEnumerable<ValidationFailure> Validate(ValidationContext<SignInViewModel> context)
+            {
+                var model = context.InstanceToValidate;
+                if (!(model.Username == "test" && model.Password == "password"))
+                {
+                    // Return a model level validation failure.
+                    yield return new ValidationFailure("", "Incorrect username or password.");
+                }
+            }
         }
     }
 }

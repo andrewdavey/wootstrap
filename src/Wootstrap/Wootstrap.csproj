@@ -133,7 +133,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Google.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelper_FormForModel.cs" />
     <Compile Include="HttpModules\Authorization.cs" />
+    <Compile Include="Infrastructure\Metadata\Extensions.cs" />
     <Compile Include="Infrastructure\Mvc\Filtering.cs" />
     <Compile Include="Infrastructure\Ioc\Wootstrapper.cs" />
     <Compile Include="Infrastructure\Mvc\LowercaseRoute.cs" />
@@ -191,6 +193,7 @@
     <Content Include="Views\Shared\EditorTemplates\MultilineText.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HttpPostedFileBase.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
     <None Include="Views\Shared\EditorTemplates\Password.cshtml" />
     <None Include="Views\Shared\EditorTemplates\Object.cshtml" />
     <None Include="Views\Shared\EditorTemplates\String.cshtml" />

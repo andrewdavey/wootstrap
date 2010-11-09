@@ -16,6 +16,7 @@ namespace Wootstrap.Areas.Public.ViewModels
         public int PickNumber { get; set; }
         public int? MaybePickNumber { get; set; }
         public decimal Price { get; set; }
+        public string Password { get; set; }
     }
 
     public class ExampleFormMetadata : AbstractValidator<ExampleForm>
@@ -23,6 +24,7 @@ namespace Wootstrap.Areas.Public.ViewModels
         public ExampleFormMetadata()
         {
             RuleFor(f => f.LargeText).DataType(DataType.MultilineText);
+            RuleFor(f => f.Password).DataType(DataType.Password);
         }
     }
 }

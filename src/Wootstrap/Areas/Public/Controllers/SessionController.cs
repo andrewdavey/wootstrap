@@ -9,21 +9,49 @@ namespace Wootstrap.Areas.Public.Controllers
 {
     public class SessionController : WootstrapController
     {
-        public ActionResult SignIn()
+        public ActionResult SignIn(string returnUrl)
         {
-            return View();
+            returnUrl = GetSafeReturnUrl(returnUrl);
+            ModelState.Clear(); // otherwise we get the ModelState's original ReturnUrl in the view!
+            return View(new SignInViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
         public ActionResult SignIn(SignInViewModel model)
         {
-            Response.Cookies.Add(CreateAuthCookie(model.Username, GetRoles(model.Username)));
-            return Redirect("~");
+            // NOTE: The SignInViewModel validation will authenticate the username and password.
+            // This action is only called when model is valid, thanks to RequireValidModelStateFilter.
+
+            AddAuthCookieToResponse(model);
+            return Redirect(GetSafeReturnUrl(model.ReturnUrl));
+        }
+
+        string GetSafeReturnUrl(string returnUrl)
+        {
+            if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
+            {
+                return FormsAuthentication.DefaultUrl;
+            }
+            else
+            {
+                return returnUrl;
+            }
+        }
+
+        void AddAuthCookieToResponse(SignInViewModel model)
+        {
+            Response.Cookies.Add(
+                CreateAuthCookie(
+                    model.Username, 
+                    GetRoles(model.Username)
+                )
+            );
         }
 
         string[] GetRoles(string username)
         {
-            return new string[0];
+            // TODO: Get the roles for the username.
+            return new[] { "admin" };
         }
 
         HttpCookie CreateAuthCookie(string username, string[] roles)

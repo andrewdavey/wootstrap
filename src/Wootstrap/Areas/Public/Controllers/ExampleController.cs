@@ -14,5 +14,10 @@ namespace Wootstrap.Areas.Public.Controllers
             return View(new ExampleForm());
         }
 
+        [HttpPost]
+        public ActionResult Index(ExampleForm form)
+        {
+            return View();
+        }
     }
 }
