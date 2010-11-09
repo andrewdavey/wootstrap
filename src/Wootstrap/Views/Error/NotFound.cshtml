@@ -1,0 +1,13 @@
+﻿@{
+	Layout = "../Shared/_site.cshtml";
+    View.Title = "Page Not Found";
+}
+
+<h1>Page Not Found</h1>
+<p>The page you requested (@View.RequestedUrl) was not found.</p>
+@if (View.ReferrerUrl != null) {
+<p>You can try going back to the <a href="@View.ReferrerUrl">previous page</a> and trying another link.</p>
+}
+
+@* Stop IE showing it's own default 404 page by ensuring content length is over 512 bytes *@
+<!-- @(new String('.', 512)) -->

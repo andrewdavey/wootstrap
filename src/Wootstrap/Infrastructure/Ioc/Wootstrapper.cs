@@ -1,10 +1,9 @@
 ﻿using Autofac;
 using Autofac.Integration.Web;
-using Wootstrap.Infrastructure.Ioc;
 
-namespace Wootstrap.Infrastructure.Initialization
+namespace Wootstrap.Infrastructure.Ioc
 {
-    public static class Ioc
+    public static class Wootstrapper
     {
         /// <summary>
         /// Creates and configures a new Autofac Container for the application.

@@ -1,38 +1,21 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac.Integration.Web;
-using Autofac.Integration.Web.Mvc;
 using FluentValidation.Mvc;
+using Wootstrap.Controllers;
 using Wootstrap.Infrastructure.Metadata;
 
-namespace Wootstrap.Infrastructure.Initialization
+namespace Wootstrap.Infrastructure.Mvc
 {
-    public static class Mvc
+    public static class Wootstrapper
     {
         public static void Initialize(IContainerProvider containerProvider)
         {
-            RegisterGlobalFilters(GlobalFilters.Filters);
+            Filtering.Initialize(GlobalFilters.Filters);
             AreaRegistration.RegisterAllAreas();
-            RegisterRoutes(RouteTable.Routes);
+            Routing.Initialize(RouteTable.Routes);
             RegisterModelValidation(ModelValidatorProviders.Providers, containerProvider);
             RegisterControllerFactory(containerProvider);
-        }
-
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
-        {
-            filters.Add(new HandleErrorAttribute());
-        }
-
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            var publicRoute = routes.MapRoute(
-                "Public_default",
-                "{controller}/{action}/{id}",
-                new { controller = "home", action = "Index", id = UrlParameter.Optional }
-            );
-            publicRoute.DataTokens["Area"] = "Public";
         }
 
         public static void RegisterModelValidation(ModelValidatorProviderCollection providers, IContainerProvider containerProvider)
@@ -50,7 +33,7 @@ namespace Wootstrap.Infrastructure.Initialization
 
         public static void RegisterControllerFactory(IContainerProvider containerProvider)
         {
-            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(containerProvider));
+            ControllerBuilder.Current.SetControllerFactory(new WootstrapControllerFactory(containerProvider));
         }
     }
 }

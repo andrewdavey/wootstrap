@@ -54,9 +54,24 @@
     <Reference Include="Hotmod">
       <HintPath>..\..\lib\hotmod\Hotmod.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages" />
-    <Reference Include="System.Web.Helpers" />
+    <Reference Include="Microsoft.Web.Helpers">
+      <HintPath>..\..\lib\aspnet\Microsoft.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnet\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnet\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnet\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -67,6 +82,21 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnet\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnet\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnet\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -76,26 +106,45 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebMatrix.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\aspnet\WebMatrix.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Areas\Public\Controllers\HomeController.cs" />
     <Compile Include="Areas\Public\Controllers\SessionController.cs" />
     <Compile Include="Areas\Public\PublicAreaRegistration.cs" />
     <Compile Include="Areas\Public\ViewModels\SignInViewModel.cs" />
     <Compile Include="Areas\Public\ViewModels\SignInViewModelMetadata.cs" />
+    <Compile Include="Controllers\WootstrapController.cs" />
+    <Compile Include="Controllers\WootstrapControllerFactory.cs" />
+    <Compile Include="Filters\HandleErrorFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Initialization\Ioc.cs" />
-    <Compile Include="Infrastructure\Initialization\Mvc.cs" />
+    <Compile Include="Helpers\Google.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Google.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Mvc\Filtering.cs" />
+    <Compile Include="Infrastructure\Ioc\Wootstrapper.cs" />
+    <Compile Include="Infrastructure\Mvc\LowercaseRoute.cs" />
+    <Compile Include="Infrastructure\Mvc\Wootstrapper.cs" />
+    <Compile Include="Infrastructure\Mvc\Routing.cs" />
     <Compile Include="Infrastructure\Ioc\MetadataModule.cs" />
     <Compile Include="Infrastructure\Ioc\SystemWebModule.cs" />
     <Compile Include="Infrastructure\Metadata\AttributeMetadataValidator.cs" />
     <Compile Include="Infrastructure\Metadata\ConventionalModelMetadataProvider.cs" />
     <Compile Include="Infrastructure\Metadata\ConventionalValidatorFactory.cs" />
+    <Compile Include="Infrastructure\WootstrapApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Web.config" />
@@ -118,16 +167,22 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\ErrorLog\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Public\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\Error\NotFound.cshtml" />
     <None Include="Areas\Public\Views\Home\Index.cshtml" />
     <None Include="Areas\Public\Views\Session\SignIn.cshtml" />
     <None Include="Areas\Public\Views\Shared\_public.cshtml" />
     <None Include="Areas\Public\Views\_viewstart.cshtml" />
+    <None Include="Helpers\Google.cshtml">
+      <Generator>RazorClassGenerator</Generator>
+      <LastGenOutput>Google.cs</LastGenOutput>
+    </None>
     <None Include="Views\Shared\_site.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

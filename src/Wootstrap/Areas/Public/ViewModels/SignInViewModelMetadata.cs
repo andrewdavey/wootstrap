@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using FluentValidation;
 using FluentValidation.Mvc.MetadataExtensions;
-using System.ComponentModel.DataAnnotations;
 
 namespace Wootstrap.Areas.Public.ViewModels
 {
@@ -13,6 +9,7 @@ namespace Wootstrap.Areas.Public.ViewModels
         public SignInViewModelMetadata()
         {
             RuleFor(m => m.Password).DataType(DataType.Password);
+            RuleFor(m => m.ReturnUrl).Scaffold(false);
         }
     }
 }
