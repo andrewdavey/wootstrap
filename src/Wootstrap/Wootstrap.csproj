@@ -113,6 +113,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Public\Controllers\ExampleController.cs" />
+    <Compile Include="Areas\Public\ViewModels\ExampleForm.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Areas\Public\Controllers\HomeController.cs" />
     <Compile Include="Areas\Public\Controllers\SessionController.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Controllers\WootstrapController.cs" />
     <Compile Include="Controllers\WootstrapControllerFactory.cs" />
     <Compile Include="Filters\HandleErrorFilter.cs" />
+    <Compile Include="Filters\RequireValidModelStateFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -130,6 +133,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Google.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="HttpModules\Authorization.cs" />
     <Compile Include="Infrastructure\Mvc\Filtering.cs" />
     <Compile Include="Infrastructure\Ioc\Wootstrapper.cs" />
     <Compile Include="Infrastructure\Mvc\LowercaseRoute.cs" />
@@ -174,6 +178,7 @@
     <Content Include="Areas\Public\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Public\Views\Example\Index.cshtml" />
     <None Include="Views\Error\NotFound.cshtml" />
     <None Include="Areas\Public\Views\Home\Index.cshtml" />
     <None Include="Areas\Public\Views\Session\SignIn.cshtml" />
@@ -183,6 +188,13 @@
       <Generator>RazorClassGenerator</Generator>
       <LastGenOutput>Google.cs</LastGenOutput>
     </None>
+    <Content Include="Views\Shared\EditorTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\HttpPostedFileBase.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
+    <None Include="Views\Shared\EditorTemplates\Password.cshtml" />
+    <None Include="Views\Shared\EditorTemplates\Object.cshtml" />
+    <None Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <None Include="Views\Shared\EditorTemplates\_Template.cshtml" />
     <None Include="Views\Shared\_site.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

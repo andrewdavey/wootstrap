@@ -8,6 +8,7 @@ namespace Wootstrap.Infrastructure.Mvc
         public static void Initialize(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorFilter());
+            filters.Add(new RequireValidModelStateFilter());
         }
     }
 }

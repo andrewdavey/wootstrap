@@ -1,0 +1,13 @@
+﻿@model ExampleForm
+@{
+    View.Title = "Example";
+}
+
+<h1>Example</h1>
+
+@using (Html.BeginForm()) {
+@Html.EditorForModel()
+<div>
+    <button type="submit">OK</button>
+</div>
+}

@@ -10,6 +10,8 @@ namespace Wootstrap.Areas.Public.ViewModels
         {
             RuleFor(m => m.Password).DataType(DataType.Password);
             RuleFor(m => m.ReturnUrl).Scaffold(false);
+
+            RuleFor(m => m.Password).Equal("test").WithMessage("Incorrect username or password.");
         }
     }
 }

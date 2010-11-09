@@ -6,7 +6,7 @@ using Autofac.Integration.Web;
 
 namespace Wootstrap.Infrastructure
 {
-    public class WootstrapApplication : HttpApplication
+    public class WootstrapApplication : HttpApplication, IContainerProviderAccessor
     {
         protected void Application_Start()
         {

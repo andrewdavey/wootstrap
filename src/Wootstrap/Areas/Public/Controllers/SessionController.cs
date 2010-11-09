@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Wootstrap.Areas.Public.ViewModels;
 using Wootstrap.Controllers;
 
@@ -18,7 +17,36 @@ namespace Wootstrap.Areas.Public.Controllers
         [HttpPost]
         public ActionResult SignIn(SignInViewModel model)
         {
-            if (!ModelState.IsValid) return View();
+            Response.Cookies.Add(CreateAuthCookie(model.Username, GetRoles(model.Username)));
+            return Redirect("~");
+        }
+
+        string[] GetRoles(string username)
+        {
+            return new string[0];
+        }
+
+        HttpCookie CreateAuthCookie(string username, string[] roles)
+        {
+            var ticket = new FormsAuthenticationTicket(
+                1,
+                username,
+                DateTime.Now,
+                DateTime.Now.Add(FormsAuthentication.Timeout),
+                false,
+                string.Join(",", roles),
+                FormsAuthentication.FormsCookiePath
+            );
+            return new HttpCookie(FormsAuthentication.FormsCookieName)
+            {
+                HttpOnly = true,
+                Value = FormsAuthentication.Encrypt(ticket)
+            };
+        }
+
+        public ActionResult SignOut()
+        {
+            FormsAuthentication.SignOut();
             return Redirect("~");
         }
     }
